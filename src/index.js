@@ -42,6 +42,17 @@ class LoaderComponent extends AppComponent {
     this.state = Object.assign({}, this.state, newState); // merge two states together, and dont lose any parent state properties.
   }
 
+  componentDidMount(){
+    this.triggerGraphEvent('load')
+  }
+
+  triggerGraphEvent = (eventId) => {
+    const graphId = this.getPropertyData(eventId);
+    if (typeof this.getElementProps().onEvent === 'function') {
+      this.getElementProps().onEvent(graphId)
+    }
+  }
+
   renderContent() {
     return (
       <div style={{ position: 'relative', height: '100px', width: '100%' }}>
